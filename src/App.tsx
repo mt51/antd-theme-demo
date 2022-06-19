@@ -1,14 +1,10 @@
+// @ts-nocheck
+import React from 'react';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, Button } from 'antd';
-import React from 'react';
-// @ts-ignore
-import { getThemeVariables } from 'antd/dist/theme';
-import less from 'less';
 
-const cssVar = getThemeVariables('dark');
 
-console.log(cssVar)
 
 const { Header, Content, Sider } = Layout;
 
@@ -40,7 +36,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 const App: React.FC = () => {
 
   const onToggleTheme = () => {
-    less.modifyVars(cssVar);
+    less.modifyVars('');
   }
 
   return (
