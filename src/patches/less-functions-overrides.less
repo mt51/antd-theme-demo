@@ -21,7 +21,7 @@
     }
 
     .darken(@color, @percentage: 100%) {
-        return: @color;
+        return: color-mod(@color red(-@percentage)  blue(-@percentage)  green(-@percentage));
     }
 
     .lighten(@color, @percentage: 100%) {

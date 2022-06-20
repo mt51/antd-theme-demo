@@ -2,7 +2,7 @@
 import React from 'react';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, Button } from 'antd';
+import { Breadcrumb, Layout, Menu, Button, Modal, Image } from 'antd';
 
 
 
@@ -36,7 +36,15 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 const App: React.FC = () => {
 
   const onToggleTheme = () => {
-    less.modifyVars('');
+    const theme = document.body.getAttribute('data-theme');
+
+    if (theme === 'dark') {
+      document.body.removeAttribute('data-theme');
+    } else {
+      document.body.setAttribute('data-theme', 'dark'); 
+    }
+
+   
   }
 
   return (
@@ -71,9 +79,16 @@ const App: React.FC = () => {
         >
           Content
           <Button onClick={onToggleTheme}>Theme Dark</Button>
+          <Image
+            width={200}
+            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+          />
         </Content>
       </Layout>
     </Layout>
+    <Modal visible={false}>
+      <div>Test Modal</div>
+    </Modal>
   </Layout>
   )
 }

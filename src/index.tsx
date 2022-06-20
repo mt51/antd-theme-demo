@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.less';
+import 'antd/dist/antd.less';
 import './dist/theme/vars.css';
+import './dist/theme/dark-vars.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

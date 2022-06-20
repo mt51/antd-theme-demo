@@ -25,7 +25,7 @@ const ForkTsCheckerWebpackPlugin =
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
     : require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const LessPluginFunctions = require('less-plugin-functions');
+const LessPluginFunctionRewrite = require('./plugins');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
@@ -133,8 +133,7 @@ module.exports = function (webpackEnv) {
             // https://github.com/facebook/create-react-app/issues/2677
             ident: 'postcss',
             config: false,
-            plugins: !useTailwind
-              ? [
+            plugins:  [
                   'postcss-flexbugs-fixes',
                   [
                     'postcss-preset-env',
@@ -142,27 +141,16 @@ module.exports = function (webpackEnv) {
                       autoprefixer: {
                         flexbox: 'no-2009',
                       },
-                      stage: 3,
+                      stage: 3
                     },
                   ],
                   // Adds PostCSS Normalize as the reset css with default options,
                   // so that it honors browserslist config in package.json
                   // which in turn let's users customize the target behavior as per their needs.
                   'postcss-normalize',
+                  'postcss-color-mod-function'
                 ]
-              : [
-                  'tailwindcss',
-                  'postcss-flexbugs-fixes',
-                  [
-                    'postcss-preset-env',
-                    {
-                      autoprefixer: {
-                        flexbox: 'no-2009',
-                      },
-                      stage: 3,
-                    },
-                  ],
-                ],
+             
           },
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },
@@ -422,14 +410,6 @@ module.exports = function (webpackEnv) {
 
 
                 plugins: [
-                  [
-                    'import',
-                    {
-                        libraryName: 'antd',
-                        libraryDirectory: 'es',
-                        style: true,
-                    },
-                ],
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
                     require.resolve('react-refresh/babel'),
@@ -581,17 +561,17 @@ module.exports = function (webpackEnv) {
                       javascriptEnabled: true,
                       modifyVars: {'ant-prefix': 'ant'},
                       plugins: [
-                        new LessPluginFunctions({alwaysOverride: true})
+                        new LessPluginFunctionRewrite()
                       ]
                     }
                   }
                 },
+                
                 {
                   loader: "style-resources-loader",
                   options: {
                       patterns:[
                         path.resolve(__dirname, '../src/patches/antd-vars-patch.less'),
-                        path.resolve(__dirname, '../src/patches/less-functions-overrides.less'),
                       ],
                       injector: "append"
                   }
