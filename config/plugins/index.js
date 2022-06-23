@@ -33,7 +33,7 @@ LessPluginFunctionRewrite.prototype.install = function(less, PluginManager, func
         return `color-mod(var(${color.args[0].value}) a(-${percent.value}%))`;
       }
     } 
-    return `color-mod(${color.args[0].value} a(-${percent.value}%))`
+    return `color-mod(${color.value} a(-${percent.value}%))`
   })
 
   functions.add('darken', (color, percent) => {

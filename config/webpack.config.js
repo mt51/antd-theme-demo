@@ -141,6 +141,9 @@ module.exports = function (webpackEnv) {
                       autoprefixer: {
                         flexbox: 'no-2009',
                       },
+                      features: {
+                        'color-function': { unresolved: 'warn' }
+                      },
                       stage: 3
                     },
                   ],
@@ -148,7 +151,6 @@ module.exports = function (webpackEnv) {
                   // so that it honors browserslist config in package.json
                   // which in turn let's users customize the target behavior as per their needs.
                   'postcss-normalize',
-                  'postcss-color-mod-function'
                 ]
              
           },
@@ -557,6 +559,7 @@ module.exports = function (webpackEnv) {
                 {
                   loader: "less-loader",
                   options: {
+                    sourceMap: true,
                     lessOptions: {
                       javascriptEnabled: true,
                       modifyVars: {'ant-prefix': 'ant'},
@@ -571,7 +574,8 @@ module.exports = function (webpackEnv) {
                   loader: "style-resources-loader",
                   options: {
                       patterns:[
-                        path.resolve(__dirname, '../src/patches/antd-vars-patch.less'),
+                        
+                        path.resolve(__dirname, '../src/themes/patches/antd-variables-patch.less'),
                       ],
                       injector: "append"
                   }
